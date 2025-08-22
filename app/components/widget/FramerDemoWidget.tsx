@@ -180,7 +180,11 @@ export const FramerDemoWidget: React.FC = () => {
       const response = await mockApi.getGenerationStatus(jobId);
       
       if (response.success) {
-        setGenerationProgress(response.data);
+        setGenerationProgress({
+          step: response.data.status,
+          progress: response.data.progress,
+          message: response.data.message
+        });
 
         if (response.data.status === 'completed' && response.data.result) {
           playSound(800, 200, 'success');
@@ -230,13 +234,13 @@ export const FramerDemoWidget: React.FC = () => {
   return (
     <div className="max-w-5xl mx-auto">
       {/* Floating Controls Bar */}
-      <div className="sticky top-4 z-50 mb-8">
-        <div className="bg-white/80 backdrop-blur-xl border border-gray-200/50 rounded-2xl p-4 shadow-lg">
+      <div className="sticky top-4 z-50 mb-6 md:mb-8">
+        <div className="bg-white/80 backdrop-blur-xl border border-gray-200/50 rounded-2xl p-3 md:p-4 shadow-lg">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 md:gap-4">
               {/* Usage Progress Ring */}
-              <div className="relative w-12 h-12">
-                <svg className="w-12 h-12 -rotate-90" viewBox="0 0 48 48">
+              <div className="relative w-10 h-10 md:w-12 md:h-12">
+                <svg className="w-10 h-10 md:w-12 md:h-12 -rotate-90" viewBox="0 0 48 48">
                   <circle cx="24" cy="24" r="20" fill="none" stroke="#f3f4f6" strokeWidth="3"/>
                   <circle 
                     cx="24" 
@@ -254,7 +258,7 @@ export const FramerDemoWidget: React.FC = () => {
                 </div>
               </div>
 
-              <div className="text-sm">
+              <div className="text-xs md:text-sm">
                 <div className="font-medium text-gray-900">Demo Generations</div>
                 <div className="text-gray-600">{usageCount}/5 used</div>
               </div>
@@ -282,25 +286,25 @@ export const FramerDemoWidget: React.FC = () => {
       </div>
 
       {/* Content Type Cards */}
-      <div className="mb-8">
+      <div className="mb-6 md:mb-8">
         <label className="block text-sm font-bold text-gray-900 mb-4 tracking-wide">CONTENT TYPE</label>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
           {contentModes.map((mode) => (
             <button
               key={mode.id}
               onClick={() => handleModeSelect(mode)}
-              className={`group relative p-4 rounded-2xl border-2 transition-all duration-300 transform hover:scale-105 active:scale-95 ${
+              className={`group relative p-3 md:p-4 rounded-2xl border-2 transition-all duration-300 transform hover:scale-105 active:scale-95 ${
                 selectedMode?.id === mode.id 
                   ? 'border-gray-900 bg-gray-900 text-white shadow-xl' 
                   : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-lg'
               }`}
             >
               <div className="flex flex-col items-center text-center">
-                <div className="text-2xl mb-2 transform transition-transform group-hover:scale-110">
+                <div className="text-xl md:text-2xl mb-2 transform transition-transform group-hover:scale-110">
                   {mode.icon}
                 </div>
-                <div className="font-bold text-sm">{mode.label}</div>
-                <div className={`text-xs mt-1 transition-colors ${
+                <div className="font-bold text-xs md:text-sm">{mode.label}</div>
+                <div className={`text-xs mt-1 transition-colors hidden sm:block ${
                   selectedMode?.id === mode.id ? 'text-gray-300' : 'text-gray-500'
                 }`}>
                   {mode.description}

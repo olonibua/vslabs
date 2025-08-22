@@ -215,7 +215,7 @@ export const MinimalistDemoWidget: React.FC = () => {
     <div className="max-w-4xl mx-auto">
       {/* Usage Progress Bar */}
       {usageCount > 0 && (
-        <div className="mb-8">
+        <div className="mb-6 md:mb-8">
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm text-gray-600">Demo Progress</span>
             <span className="text-sm text-gray-500">{usageCount}/5 generations used</span>
@@ -230,18 +230,18 @@ export const MinimalistDemoWidget: React.FC = () => {
       )}
 
       {/* Compact Selectors Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
         {/* Content Type Selector - Compact */}
         <div className="relative">
           <label className="block text-sm font-medium text-gray-700 mb-2">Content Type</label>
           <button
             onClick={() => setShowModeDropdown(!showModeDropdown)}
-            className="w-full p-4 bg-white border border-gray-300 rounded-xl text-left hover:border-gray-400 focus:border-blue-500 focus:outline-none transition-all duration-200"
+            className="w-full p-3 md:p-4 bg-white border border-gray-300 rounded-xl text-left hover:border-gray-400 focus:border-blue-500 focus:outline-none transition-all duration-200"
           >
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 md:gap-3">
                 <div className="text-lg">{selectedMode?.icon}</div>
-                <div className="font-medium text-gray-900">{selectedMode?.label}</div>
+                <div className="font-medium text-gray-900 text-sm md:text-base truncate">{selectedMode?.label}</div>
               </div>
               <svg 
                 className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${showModeDropdown ? 'rotate-180' : ''}`}
@@ -283,15 +283,15 @@ export const MinimalistDemoWidget: React.FC = () => {
           <label className="block text-sm font-medium text-gray-700 mb-2">Voice</label>
           <button
             onClick={() => setShowVoiceDropdown(!showVoiceDropdown)}
-            className="w-full p-4 bg-white border border-gray-300 rounded-xl text-left hover:border-gray-400 focus:border-blue-500 focus:outline-none transition-all duration-200"
+            className="w-full p-3 md:p-4 bg-white border border-gray-300 rounded-xl text-left hover:border-gray-400 focus:border-blue-500 focus:outline-none transition-all duration-200"
           >
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center text-white font-bold text-sm">
+              <div className="flex items-center gap-2 md:gap-3">
+                <div className="w-7 h-7 md:w-8 md:h-8 bg-gray-900 rounded-full flex items-center justify-center text-white font-bold text-xs md:text-sm">
                   {selectedVoice?.name.charAt(0)}
                 </div>
                 <div>
-                  <div className="font-medium text-gray-900">
+                  <div className="font-medium text-gray-900 text-sm md:text-base truncate">
                     {selectedVoice?.name} {selectedVoice?.premium && '✨'}
                   </div>
                 </div>
@@ -372,11 +372,11 @@ export const MinimalistDemoWidget: React.FC = () => {
             <button
               key={index}
               onClick={() => setText(sample)}
-              className="px-3 py-2 text-sm bg-white border border-gray-300 rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 flex items-center gap-2"
+              className="px-3 py-2 text-xs md:text-sm bg-white border border-gray-300 rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 flex items-center gap-1 md:gap-2"
               title={sample.substring(0, 100) + (sample.length > 100 ? '...' : '')}
             >
               <span className="font-medium">Sample {index + 1}</span>
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-gray-500 hidden sm:inline">
                 ({sample.split(' ').length} words)
               </span>
             </button>
@@ -405,7 +405,7 @@ export const MinimalistDemoWidget: React.FC = () => {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder={selectedMode?.placeholder}
-            className="w-full h-80 p-8 text-lg border-2 border-gray-200 rounded-2xl resize-none focus:outline-none focus:border-blue-500 transition-all duration-200 leading-relaxed bg-gray-50/50"
+            className="w-full h-60 md:h-80 p-4 md:p-8 text-base md:text-lg border-2 border-gray-200 rounded-2xl resize-none focus:outline-none focus:border-blue-500 transition-all duration-200 leading-relaxed bg-gray-50/50"
             maxLength={maxChars}
           />
           
@@ -413,22 +413,22 @@ export const MinimalistDemoWidget: React.FC = () => {
           <button
             onClick={audioUrl ? handlePlay : handleGenerate}
             disabled={!text.trim() || isGenerating}
-            className="absolute bottom-8 right-8 w-16 h-16 bg-gray-900 hover:bg-gray-800 text-white rounded-2xl flex items-center justify-center hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 active:scale-95"
+            className="absolute bottom-4 md:bottom-8 right-4 md:right-8 w-12 h-12 md:w-16 md:h-16 bg-gray-900 hover:bg-gray-800 text-white rounded-xl md:rounded-2xl flex items-center justify-center hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 active:scale-95"
           >
             {isGenerating ? (
-              <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-4 h-4 md:w-6 md:h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
             ) : audioUrl ? (
               isPlaying ? (
-                <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M6 4a1 1 0 012 0v12a1 1 0 01-2 0V4zm6 0a1 1 0 012 0v12a1 1 0 01-2 0V4z" clipRule="evenodd" />
                 </svg>
               ) : (
-                <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 md:w-6 md:h-6 ml-0.5 md:ml-1" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                 </svg>
               )
             ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             )}
@@ -436,17 +436,17 @@ export const MinimalistDemoWidget: React.FC = () => {
         </div>
 
         {/* Enhanced Character Counter and Stats */}
-        <div className="flex items-center justify-between mt-4">
-          <div className="flex items-center gap-4 text-sm text-gray-600">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-4 gap-2">
+          <div className="flex items-center gap-2 md:gap-4 text-xs md:text-sm text-gray-600">
             {text && (
               <>
                 <span>~{audioManager.estimateTextDuration(text)}s audio</span>
-                <span>•</span>
+                <span className="hidden sm:inline">•</span>
                 <span>{text.split(' ').length} words</span>
               </>
             )}
           </div>
-          <div className={`text-sm font-medium ${
+          <div className={`text-xs md:text-sm font-medium ${
             isOverLimit ? 'text-red-600' : isNearLimit ? 'text-yellow-600' : 'text-gray-600'
           }`}>
             {characterCount}/{maxChars}
@@ -456,16 +456,16 @@ export const MinimalistDemoWidget: React.FC = () => {
 
       {/* Advanced Generation Progress */}
       {isGenerating && (
-        <div className="mb-8 p-6 bg-gray-50 rounded-2xl border border-gray-200">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-8 h-8 bg-gray-900 rounded-full flex items-center justify-center">
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+        <div className="mb-6 md:mb-8 p-4 md:p-6 bg-gray-50 rounded-2xl border border-gray-200">
+          <div className="flex items-center gap-3 md:gap-4 mb-4">
+            <div className="w-7 h-7 md:w-8 md:h-8 bg-gray-900 rounded-full flex items-center justify-center">
+              <div className="w-3 h-3 md:w-4 md:h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
             </div>
             <div>
-              <div className="font-semibold text-gray-900">
+              <div className="font-semibold text-gray-900 text-sm md:text-base">
                 {generationProgress?.message || 'Initializing...'}
               </div>
-              <div className="text-sm text-gray-600">
+              <div className="text-xs md:text-sm text-gray-600">
                 Creating {selectedMode?.label.toLowerCase()} with {selectedVoice?.name} voice
               </div>
             </div>

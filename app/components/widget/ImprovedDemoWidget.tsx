@@ -178,7 +178,11 @@ export const ImprovedDemoWidget: React.FC = () => {
       if (response.success) {
         setState(prev => ({ 
           ...prev, 
-          generationProgress: response.data
+          generationProgress: {
+            step: response.data.status,
+            progress: response.data.progress,
+            message: response.data.message
+          }
         }));
 
         if (response.data.status === 'completed' && response.data.result) {
@@ -233,8 +237,8 @@ export const ImprovedDemoWidget: React.FC = () => {
     <div className="max-w-6xl mx-auto p-6 space-y-8">
       {/* Header */}
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          AI Voice Generator
+        <h1 className="text-4xl font-bold  ">
+        Enhanced Version
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           Transform your text into natural-sounding speech with our advanced AI voices. 
@@ -430,23 +434,7 @@ export const ImprovedDemoWidget: React.FC = () => {
         </div>
       </div>
 
-      {/* Footer CTA */}
-      <div className="text-center py-8 border-t border-gray-200">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">
-          Ready for More Advanced Features?
-        </h3>
-        <p className="text-gray-600 mb-4">
-          Unlock unlimited generations, premium voices, and enterprise features.
-        </p>
-        <Button
-          variant="primary"
-          size="lg"
-          onClick={handleUpgrade}
-          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-        >
-          View Pricing Plans
-        </Button>
-      </div>
+    
     </div>
   );
 };
